@@ -9,6 +9,7 @@ import { useState } from "react"
 import { UNCATEGORIZED_BUDGET_ID, useBudgets } from "./contexts/BudgetsContext";
 
 function App() {
+
   const [showAddBudgetModal, setShowAddBudgetModal] = useState(false)
   const [showAddExpenseModal, setShowAddExpenseModal] = useState(false)
   const [addExpenseModalBudgetId, setAddExpenseModalBudgetId] = useState()
@@ -23,11 +24,13 @@ function App() {
   return (
     <>
       <Container className="my-4">
-        <Stack direction="horizontal" gap={2} className="mb-4">
-          <h1 className="me-auto">Presupuestos</h1>
-          <Button variant="primary" onClick={ () => setShowAddBudgetModal(true) }>Añadir presupuesto</Button>
-          <Button variant="outline-primary" onClick={ openAddExpenseModal }>Añadir gasto</Button>
-        </Stack>
+        <h1 className="mx-auto mb-4 text-center">Presupuestos</h1>
+        <div className="d-flex justify-content-center">
+          <Stack direction="horizontal" gap={2} className="mb-4">
+            <Button variant="primary" onClick={ () => setShowAddBudgetModal(true) }>Añadir presupuesto</Button>
+            <Button variant="outline-primary" onClick={ openAddExpenseModal }>Añadir gasto</Button>
+          </Stack>
+        </div>
 
         <div style={{
           display: "grid",
