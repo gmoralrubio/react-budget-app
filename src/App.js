@@ -5,6 +5,7 @@ import ViewExpensesModal from "./components/ViewExpensesModal";
 import BudgetCard from "./components/BudgetCard";
 import UncategorizedBudgetCard from "./components/UncategorizedBudgetCard";
 import TotalBudgetCard from "./components/TotalBudgetCard";
+import { IntroAlert } from "./components/IntroAlert";
 import { useState } from "react"
 import { UNCATEGORIZED_BUDGET_ID, useBudgets } from "./contexts/BudgetsContext";
 
@@ -15,6 +16,7 @@ function App() {
   const [addExpenseModalBudgetId, setAddExpenseModalBudgetId] = useState()
   const [viewExpensesModalBudgetId, setViewExpensesModalBudgetId] = useState()
   const { budgets, getBudgetExpenses } = useBudgets()
+  const {expenses} = useBudgets()
 
   function openAddExpenseModal(budgetId) {
     setShowAddExpenseModal(true)
@@ -31,6 +33,10 @@ function App() {
             <Button variant="outline-primary" onClick={ openAddExpenseModal }>Añadir gasto</Button>
           </Stack>
         </div>
+
+        {budgets.length === 0 && expenses.length === 0 && (
+          <IntroAlert />
+        )}
 
         <div style={{
           display: "grid",
