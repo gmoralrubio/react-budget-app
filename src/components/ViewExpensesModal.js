@@ -6,23 +6,18 @@ export default function ViewExpensesModal({ budgetId, handleClose }) {
 
   const { getBudgetExpenses, budgets, deleteBudget, deleteExpense } = useBudgets()
 
-  // Si el budgetId es uncategorized, creamos un nuevo budget sin categoria
-  // si no, buscamos ese budget entre los que traemos del BudgetsContext
   const budget = UNCATEGORIZED_BUDGET_ID === budgetId
     ? { name: 'Varios', id: UNCATEGORIZED_BUDGET_ID }
     : budgets.find( b => b.id === budgetId)
 
-  // Traemos los expenses del budget
   const expenses = getBudgetExpenses(budgetId)
 
-  // El modal se muestra si el budgetId existe
   return (
     <Modal show={budgetId != null} onHide={handleClose}>
       <Modal.Header closeButton>
         <Modal.Title>
           <Stack direction="horizontal" gap={2}>
-            <div>Gastos - {budget?.name}</div> {/* budget?.name -> si el budget tiene name lo pinta, si no lo omite */} 
-            {/* si el budget id no es uncategorized, lo pinta (no podemos borrar el budget uncategorized) */}
+            <div>Gastos - {budget?.name}</div>
             {budgetId !== UNCATEGORIZED_BUDGET_ID && (
               <Button onClick={() => {
                 deleteBudget(budget)

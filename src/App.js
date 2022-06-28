@@ -9,21 +9,12 @@ import { useState } from "react"
 import { UNCATEGORIZED_BUDGET_ID, useBudgets } from "./contexts/BudgetsContext";
 
 function App() {
-
-  // Controla si se muestra o no el modal de add budget
   const [showAddBudgetModal, setShowAddBudgetModal] = useState(false)
-
-  // Controla si se muestra o no el modal de add expense
   const [showAddExpenseModal, setShowAddExpenseModal] = useState(false)
   const [addExpenseModalBudgetId, setAddExpenseModalBudgetId] = useState()
-  
   const [viewExpensesModalBudgetId, setViewExpensesModalBudgetId] = useState()
-
-  // Traemos los budgets y lo que necesitemos de BudgetsContext con el hook useBudgets
   const { budgets, getBudgetExpenses } = useBudgets()
 
-  // Controla la apertura del modal de expenses, por id
-  // la llamamos desde el boton de anadir expenses
   function openAddExpenseModal(budgetId) {
     setShowAddExpenseModal(true)
     setAddExpenseModalBudgetId(budgetId)
@@ -45,10 +36,7 @@ function App() {
           alignItems: "flex-start"
         }}
         >
-          {/* Loopeamos por los budgets y los pintamos */}
           {budgets.map(budget => {
-            // Cogemos todos los expenses de un budget (budget.id) y devuelve la suma de todos los expenses
-            // a reduce le pasamos un total y le sumamos todos los expenses de el budget, inicializa total en 0
             const amount = getBudgetExpenses(budget.id).reduce(
               (total, expense) => total + expense.amount, 0)
             return ( 
@@ -57,7 +45,6 @@ function App() {
                 name={budget.name}
                 amount={amount}
                 max={budget.max}
-                // onAddExpenseClick es un evento que le pasamos a BudgetCard como prop con el budgetId que tiene que mostrar por defecto
                 onAddExpenseClick={() => openAddExpenseModal(budget.id)}
                 onViewExpensesClick={() => setViewExpensesModalBudgetId(budget.id)}
                 />
@@ -77,7 +64,6 @@ function App() {
 
       <AddExpenseModal
         show={showAddExpenseModal}
-        // Le pasamos un defaultBudgetId
         defaultBudgetId={addExpenseModalBudgetId}
         handleClose={ () => setShowAddExpenseModal(false) }/>
 

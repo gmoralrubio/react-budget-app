@@ -1,7 +1,6 @@
 import { Button, Card, ProgressBar, Stack } from "react-bootstrap";
 import { currencyFormatter } from "../utils";
 
-// onAddExpenseClick es un evento, se lo pasamos al boton de add expense
 export default function BudgetCard({ name, amount, max, gray, onAddExpenseClick, onViewExpensesClick, hideButtons }) {
   const classNames = []
   if (amount > max) {
@@ -16,13 +15,11 @@ export default function BudgetCard({ name, amount, max, gray, onAddExpenseClick,
           <div className="me-2">{name}</div>
           <div className="d-flex align-items-baseline">
             {currencyFormatter.format(amount)}
-            {/* Si recibe max, se muestra, si no (card uncategorized) no se muestra */}
             {max && (
               <span className="text-muted fs-6 ms-1">/ {currencyFormatter.format(max)}</span>
             )}
           </div>
         </Card.Title>
-        {/* Si recibe max, se muestra, si no (card uncategorized) no se muestra */}
         {max && (
           <ProgressBar
             className="rounded-pill"

@@ -2,21 +2,16 @@ import { Form, Modal, Button } from "react-bootstrap";
 import { useRef } from "react"
 import { UNCATEGORIZED_BUDGET_ID, useBudgets } from "../contexts/BudgetsContext"
 
-// Los expenses se pueden asignar a un budget via id, por eso necesitamos un defaultBudgetID
 export default function AddExpenseModal({ show, handleClose, defaultBudgetId }) {
 
-  // Se usan en los inputs
-  // Crean referencias a los valores de los inputs que podemos usar
   const descriptionRef = useRef()
   const amountRef = useRef()
   const budgetIdRef = useRef()
 
-  // Traemos lo que necesitamos del BudgetsContext via useBudgets hook
   const { addExpense, budgets } = useBudgets()
 
   function handleSubmit(e) {
     e.preventDefault()
-    // llamamos a la funcion addBudget que viene del BudgetContext, y le pasamos los valores en un objeto
     addExpense({
       description: descriptionRef.current.value,
       amount: parseFloat(amountRef.current.value),
@@ -46,10 +41,8 @@ export default function AddExpenseModal({ show, handleClose, defaultBudgetId }) 
           <Form.Group className="mb-3" controlId="budgetId">
             <Form.Label>Presupuesto</Form.Label>
             <Form.Select defaultValue={defaultBudgetId} ref={budgetIdRef} >
-              {/* Option para los expenses sin categoria */}
               <option id={UNCATEGORIZED_BUDGET_ID}>Varios</option>
               {budgets.map(budget =>(
-                // Por cada budget, creamos un option
                 <option key={budget.id} value={budget.id}>{budget.name}</option>
               ))}
             </Form.Select>

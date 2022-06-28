@@ -4,17 +4,12 @@ import { useBudgets } from "../contexts/BudgetsContext"
 
 export default function AddBudgetModal({ show, handleClose }) {
 
-  // Se usan en los inputs
-  // Crean referencias a los valores de los inputs que podemos usar
   const nameRef = useRef()
   const maxRef = useRef()
-
-  // Para llamaar a addBudget, debemos usar el hook useBudgets() que hemos creado en el BudgetsContext
   const { addBudget } = useBudgets()
 
   function handleSubmit(e) {
     e.preventDefault()
-    // llamamos a la funcion addBudget que viene del BudgetContext, y le pasamos los valores en un objeto
     addBudget({
       name: nameRef.current.value,
       max: parseFloat(maxRef.current.value),
